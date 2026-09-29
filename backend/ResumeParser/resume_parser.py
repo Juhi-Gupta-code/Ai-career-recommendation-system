@@ -188,16 +188,27 @@ def extract_named_entities(text):
 def parse_resume(pdf_path, category=""):
     raw_text = extract_text_from_pdf(pdf_path)
     clean_text = clean_resume_text(raw_text)
+
     return {
         "Filename": os.path.basename(pdf_path),
         "Category": category,
+
         "Skills": ", ".join(extract_skills(clean_text)),
+
         "Education": extract_education(raw_text),
+
         "Experience": extract_experience(raw_text),
+
         "Certifications": extract_certifications(raw_text),
+
+        "Tokens": tokenize_text(clean_text),
+
+        "Lemmas": lemmatize_text(clean_text),
+
+        "Named_Entities": extract_named_entities(clean_text),
+
         "Resume_Text": clean_text
     }
-
 def process_resume_folder(root_folder):
     all_resumes = []
     errors = []
